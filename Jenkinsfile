@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+environment {
+    DOCKERHUB_CREDENTIALS=credentials('projet')
+    }
     stages {
         stage('Récupération du code de la branche') {
             steps {
@@ -30,6 +32,22 @@ pipeline {
                 sh "mvn deploy"
             }
          }
-
+        stage('Docker Image') {
+                           steps {
+                               sh 'docker build -t aminedakhlia-5sae3-g4 .'
+                           }
+               }        
+                stage('DOCKERHUB') {
+                          steps {
+                              sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                              sh 'docker tag aminedakhlia-5sae3-g4 aminedakhlia1/amine-5sae3-g4:1.0.0'
+                              sh 'docker push aminedakhlia1/amine-5sae3-g4:1.0.0'
+                          }
+                      }
+               stage('Docker Compose') {
+                                  steps {
+                                      sh 'docker compose up -d'
+                                  }
+                      }
     }
 }
