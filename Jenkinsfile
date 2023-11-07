@@ -25,7 +25,11 @@ pipeline {
             sh "mvn sonar:sonar -Dsonar.login=sqa_df72b24d6adc61685d016b7ae95e9c5c9b8aada6"
         }
         }
-
+        stage('nexus'){
+            steps {
+                sh "mvn deploy"
+            }
+         }
 
     }
 }
