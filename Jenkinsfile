@@ -40,7 +40,7 @@ pipeline {
                 stage('DOCKERHUB') {
                           steps {
                               sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-                              sh 'docker tag yosrdahmani-5sae3-g4 yosr1997/yosr-5sae4-g3:1.0.0'
+                              sh 'docker tag yosrdahmani-5sae3-g4 yosr1997/yosr-5sae3-g4:1.0.0'
                               sh 'docker push yosr1997/yosr-5sae3-g4:1.0.0'
                           }
                       }
