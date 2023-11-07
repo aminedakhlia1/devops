@@ -1,4 +1,4 @@
 FROM openjdk:8
-ADD target/kaddem-1.0.jar kaddem.jar
+ADD target/gestion-station-ski-1.0.jar gestion-station-ski.jar
 EXPOSE 8089
-ENTRYPOINT ["java", "-jar", "kaddem.jar"]
+ENTRYPOINT ["java", "-jar", "gestion-station-ski.jar"]
