@@ -1,8 +1,6 @@
 pipeline {
     agent any
-  environment {
-    DOCKERHUB_CREDENTIALS=credentials('projet')
-    }
+
     stages {
         stage('Récupération du code de la branche') {
             steps {
