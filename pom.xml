@@ -53,6 +53,16 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		 <dependency>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter-actuator</artifactId>
+                        <version>2.6.9</version>
+                </dependency>
+                <dependency>
+                        <groupId>io.micrometer</groupId>
+                        <artifactId>micrometer-registry-prometheus</artifactId>
+                        <version>1.8.7</version>
+                </dependency>
 	</dependencies>
 
 	<build>
@@ -71,5 +81,11 @@
 			</plugin>
 		</plugins>
 	</build>
+<distributionManagement>
+    <repository>
+        <id>deploymentRepo</id>
+        <url>http://192.168.246.197:8081/repository/maven-releases/</url>
+    </repository>
+</distributionManagement>
 
 </project>
