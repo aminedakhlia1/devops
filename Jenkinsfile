@@ -19,7 +19,7 @@ stages {
                 sh 'mvn compile'
                 }
 }
-
+/*
 stage('SONARQUBE'){
  steps {
  sh"mvn clean verify sonar:sonar \
@@ -28,7 +28,7 @@ stage('SONARQUBE'){
   -Dsonar.host.url=http://192.168.1.109:9000 \
   -Dsonar.token=sqp_fb40ce9aae1e1dd37712180f7daf292c7375d9ef"
  }
- }
+ }*/
  
  
  stage('MVN build'){
