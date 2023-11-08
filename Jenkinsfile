@@ -18,16 +18,15 @@ stages {
                 }
 }
 
-
-/*stage('SONARQUBE'){
+stage('SONARQUBE'){
  steps {
  sh"mvn clean verify sonar:sonar \
-  -Dsonar.projectKey=Myproject \
-  -Dsonar.projectName='Myproject' \
- -Dsonar.host.url=http://192.168.33.10:9000 \
- -Dsonar.token=sqp_515f0fb27d8940af27dfbc13c5443e9b224549fa"
+  -Dsonar.projectKey=MyProject \
+  -Dsonar.projectName='MyProject' \
+  -Dsonar.host.url=http://192.168.1.109:9000 \
+  -Dsonar.token=sqp_fb40ce9aae1e1dd37712180f7daf292c7375d9ef"
  }
- }*/
+ }
  
  
  stage('MVN build'){
@@ -40,7 +39,7 @@ stages {
  
 
  
-  /*  stage('Publish to Nexus') {
+    stage('Publish to Nexus') {
 steps {
 script {
             sh 'mvn deploy -Dmaven.test.skip   '
@@ -48,7 +47,7 @@ script {
 }
  
 }
-*/
+
   /*
  stage('Build Docker Image') {
       steps {
