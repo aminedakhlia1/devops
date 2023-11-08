@@ -47,8 +47,9 @@ script {
           }
 }
  
-}/*
+}
 */
+  /*
  stage('Build Docker Image') {
       steps {
         script {
@@ -70,7 +71,7 @@ script {
         sh 'docker push ilyeshamdi/spring-app'
       }
     }
-*/
+*//*
  stage('DOCKER-COMPOSE'){
          
 steps{
@@ -79,8 +80,8 @@ script{
                    sh 'docker-compose up -d'
                        }
                }
-}*/
-
+}
+*/
 
  
       }
