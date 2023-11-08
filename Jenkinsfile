@@ -40,7 +40,7 @@ stage('SONARQUBE'){
 
  
 
- 
+ /*
     stage('Publish to Nexus') {
 steps {
 script {
@@ -71,7 +71,7 @@ script {
       steps {
         sh 'docker push rafrafi/spring-app'
       }
-    }
+    }*/
 
  stage('DOCKER-COMPOSE'){
          
