@@ -52,7 +52,7 @@ script {
  stage('Build Docker Image') {
       steps {
         script {
-         sh 'docker build -t ilyeshamdi/spring-app .'
+         sh 'docker build -t rafrafi/spring-app .'
           }
       }
      }
@@ -67,7 +67,7 @@ script {
 /*
     stage('Push Docker Image') {
       steps {
-        sh 'docker push ilyeshamdi/spring-app'
+        sh 'docker push rafrafi/spring-app'
       }
     }
 *//*
