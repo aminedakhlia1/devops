@@ -1,7 +1,9 @@
 pipeline {
 
   agent any  
-
+   environment{
+        DOCKERHUB_CREDENTIALS=credentials('CredentialHub')
+   }
 
 stages {
 
@@ -48,7 +50,7 @@ script {
  
 }
 
-  /*
+  
  stage('Build Docker Image') {
       steps {
         script {
@@ -64,13 +66,13 @@ script {
       sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR -p $DOCKERHUB_CREDENTIALS_PSW'
       }
    }
-/*
+
     stage('Push Docker Image') {
       steps {
         sh 'docker push rafrafi/spring-app'
       }
     }
-*//*
+
  stage('DOCKER-COMPOSE'){
          
 steps{
