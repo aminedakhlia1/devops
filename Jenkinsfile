@@ -8,7 +8,7 @@ pipeline {
 stages {
 
 
-  stage('Cleaning the project') {
+  stage('Cleaning the project') {  
                 steps {
                 sh 'mvn clean'
                 }
