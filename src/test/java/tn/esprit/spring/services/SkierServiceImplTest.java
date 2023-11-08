@@ -1,6 +1,5 @@
 package tn.esprit.spring.services;
 
-import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,20 +12,25 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 import tn.esprit.spring.entities.Skier;
 import tn.esprit.spring.entities.Subscription;
+import tn.esprit.spring.entities.TypeSubscription;
 import tn.esprit.spring.repositories.ISkierRepository;
 import tn.esprit.spring.repositories.ISubscriptionRepository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
 public class SkierServiceImplTest {
-/*
+
     @InjectMocks
     private SkierServicesImpl skierServices;
 
@@ -36,11 +40,38 @@ public class SkierServiceImplTest {
     @Mock
     private ISubscriptionRepository subscriptionRepository;
 
-    @Before
+    @BeforeEach
     public void init() {
         MockitoAnnotations.initMocks(this);
     }
+    @Test
+    public void testAddSkier() {
+        // Create a Subscription instance
+        Subscription subscription = new Subscription();
+        subscription.setStartDate(LocalDate.of(2023, 1, 1));
+        subscription.setEndDate(LocalDate.of(2023, 12, 31));
+        subscription.setPrice(100.0f);
+        subscription.setTypeSub(TypeSubscription.ANNUAL);
 
+        // Create a Skier instance
+        Skier skier = new Skier();
+        skier.setFirstName("John");
+        skier.setLastName("Doe");
+        skier.setDateOfBirth(LocalDate.of(1990, 5, 15));
+        skier.setCity("New York");
+        skier.setSubscription(subscription);
+
+        when(skierRepository.save(any())).thenReturn(skier);
+
+        Skier savedSkier = skierServices.addSkier(skier);
+
+        assertNotNull(savedSkier);
+        assertEquals(savedSkier.getSubscription(), subscription);
+        // Add more assertions as needed
+    }
+
+
+/*
     @Test
     public void testRetrieveAllSkiers() {
         // Create a list of Skier objects for testing
@@ -57,7 +88,7 @@ public class SkierServiceImplTest {
         assertNotNull(result);
         assertEquals(2, result.size());
     }
-
+/*
     @Test
     public void testAddSkier() {
         Skier skier = new Skier();
