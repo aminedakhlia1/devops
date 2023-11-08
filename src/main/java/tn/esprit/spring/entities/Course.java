@@ -27,8 +27,8 @@ public class Course implements Serializable {
 	@Enumerated(EnumType.STRING)
 	TypeCourse typeCourse;
 	@Enumerated(EnumType.STRING)
-	Support support;
-	Float price;
+	Support support;   
+	Float price;   
 	int timeSlot;
 
 	@JsonIgnore
