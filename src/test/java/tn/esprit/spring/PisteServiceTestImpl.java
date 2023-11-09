@@ -1,126 +1,85 @@
-/*
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.context.SpringBootTest;
-import tn.esprit.spring.entities.Skier;
-import tn.esprit.spring.entities.Subscription;
-import tn.esprit.spring.entities.TypeSubscription;
-import tn.esprit.spring.repositories.ISkierRepository;
-import tn.esprit.spring.repositories.ISubscriptionRepository;
+import tn.esprit.spring.entities.Piste;
+import tn.esprit.spring.repositories.IPisteRepository;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
-@SpringBootTest
-@ExtendWith(MockitoExtension.class)
-public class SkierServiceImplTest {
+class PisteServicesImplTest {
+
+    @Mock
+    private IPisteRepository pisteRepository;
 
     @InjectMocks
-    private SkierServicesImpl skierServices;
+    private PisteServicesImpl pisteServices;
 
-    @Mock
-    private ISkierRepository skierRepository;
-
-    @Mock
-    private ISubscriptionRepository subscriptionRepository;
-
-    @BeforeEach
-    public void init() {
-        MockitoAnnotations.initMocks(this);
-    }
-    @Test
-    public void testAddSkier() {
-        // Create a Subscription instance
-        Subscription subscription = new Subscription();
-        subscription.setStartDate(LocalDate.of(2023, 1, 1));
-        subscription.setEndDate(LocalDate.of(2023, 12, 31));
-        subscription.setPrice(100.0f);
-        subscription.setTypeSub(TypeSubscription.ANNUAL);
-
-        // Create a Skier instance
-        Skier skier = new Skier();
-        skier.setFirstName("John");
-        skier.setLastName("Doe");
-        skier.setDateOfBirth(LocalDate.of(1990, 5, 15));
-        skier.setCity("New York");
-        skier.setSubscription(subscription);
-
-        when(skierRepository.save(any())).thenReturn(skier);
-
-        Skier savedSkier = skierServices.addSkier(skier);
-
-        assertNotNull(savedSkier);
-        assertEquals(savedSkier.getSubscription(), subscription);
-        // Add more assertions as needed
+    public PisteServicesImplTest() {
+        MockitoAnnotations.openMocks(this);
     }
 
-
-/*
     @Test
-    public void testRetrieveAllSkiers() {
-        // Create a list of Skier objects for testing
-        List<Skier> skiers = new ArrayList<>();
-        skiers.add(new Skier());
-        skiers.add(new Skier());
+    void retrieveAllPistes() {
+        // Arrange
+        Piste piste = new Piste(); // You need to create a sample Piste object for testing
+        when(pisteRepository.findAll()).thenReturn(Collections.singletonList(piste));
 
-        // Mock the behavior of skierRepository.findAll()
-        Mockito.when(skierRepository.findAll()).thenReturn(skiers);
+        // Act
+        List<Piste> result = pisteServices.retrieveAllPistes();
 
-        List<Skier> result = skierServices.retrieveAllSkiers();
+        // Assert
+        assertEquals(1, result.size());
+        assertEquals(piste, result.get(0));
+        verify(pisteRepository, times(1)).findAll();
+    }
 
-        // Verify that the result is not null and contains two Skier objects
+    @Test
+    void addPiste() {
+        // Arrange
+        Piste piste = new Piste(); // You need to create a sample Piste object for testing
+        when(pisteRepository.save(piste)).thenReturn(piste);
+
+        // Act
+        Piste result = pisteServices.addPiste(piste);
+
+        // Assert
         assertNotNull(result);
-        assertEquals(2, result.size());
-    }
-/*
-    @Test
-    public void testAddSkier() {
-        Skier skier = new Skier();
-        Subscription subscription = new Subscription();
-        skier.setSubscription(subscription);
-
-        // Mock the behavior of skierRepository.save()
-        Mockito.when(skierRepository.save(skier)).thenReturn(skier);
-
-        Skier result = skierServices.addSkier(skier);
-
-        // Verify that the returned Skier object has an end date set based on the subscription type
-        assertNotNull(result);
-        assertNotNull(result.getSubscription().getEndDate());
+        assertEquals(piste, result);
+        verify(pisteRepository, times(1)).save(piste);
     }
 
     @Test
-    public void testAssignSkierToSubscription() {
-        Long numSkier = 1L;
-        Long numSubscription = 2L;
+    void removePiste() {
+        // Arrange
+        Long numPiste = 1L; // You need to set a sample Piste ID for testing
 
-        Skier skier = new Skier();
-        Subscription subscription = new Subscription();
-        skier.setSubscription(subscription);
+        // Act
+        pisteServices.removePiste(numPiste);
 
-        // Mock the behavior of skierRepository.findById() and subscriptionRepository.findById()
-        Mockito.when(skierRepository.findById(numSkier)).thenReturn(Optional.of(skier));
-        Mockito.when(subscriptionRepository.findById(numSubscription)).thenReturn(Optional.of(subscription));
+        // Assert
+        verify(pisteRepository, times(1)).deleteById(numPiste);
+    }
 
-        Skier result = skierServices.assignSkierToSubscription(numSkier, numSubscription);
+    @Test
+    void retrievePiste() {
+        // Arrange
+        Long numPiste = 1L; // You need to set a sample Piste ID for testing
+        Piste piste = new Piste(); // You need to create a sample Piste object for testing
+        when(pisteRepository.findById(numPiste)).thenReturn(Optional.of(piste));
 
-        // Verify that the returned Skier object has the assigned subscription
+        // Act
+        Piste result = pisteServices.retrievePiste(numPiste);
+
+        // Assert
         assertNotNull(result);
-        assertEquals(subscription, result.getSubscription());
-    }*/
-}*/
+        assertEquals(piste, result);
+        verify(pisteRepository, times(1)).findById(numPiste);
+    }
+}
