@@ -1,6 +1,6 @@
 version: '3'
 services:
-  kaddem:
+  spring:
     image: youssefriahi-5sae3-piste:latest
     restart: on-failure
     ports:
