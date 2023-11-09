@@ -1,28 +1,24 @@
-version: "3"
+version: '3'
 services:
-  mysqldb:
-    container_name: mysqldb
+  aminedb:
     image: mysql:latest
-    restart: unless-stopped
-    ports:
-      - 3306:3306
     environment:
-      - MYSQL_USER:root
-      - MYSQL_PASSWORD:root
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=amine5SAE3BD
-    volumes:
-      - db_vol:/var/lib/mysqldb
-
-  departement_app:
-    build: ./
-    image: amine
-    restart: unless-stopped
+      - MYSQL_DATABASE=devopsproject
     ports:
-      - 8089:8089
+      - "3307:3306"
+    volumes:
+      - db:/var/lib/mysql
+  backend:
     depends_on:
-      - mysqldb
-
-
+      - aminedb
+    build: ./
+    restart: on-failure
+    ports:
+      - "8090:8089"
+    stdin_open: true
+    tty: true
+    volumes:
+      - .m2:/root/.m2
 volumes:
-  db_vol:
+  db:
